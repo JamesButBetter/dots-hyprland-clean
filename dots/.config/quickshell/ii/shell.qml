@@ -57,11 +57,6 @@ ShellRoot {
         Updates.load()
     }
 
-<<<<<<< HEAD
-
-    // Panel families
-    property list<string> families: ["ii", "waffle"]
-=======
     // Load enabled stuff
     // Well, these loaders only *allow* them to be loaded, to always load or not is defined in each component
     // The media controls for example is not loaded if it's not opened
@@ -105,7 +100,6 @@ ShellRoot {
         "ii": ["iiBar", "iiBackground", "iiCheatsheet", "iiDock", "iiLock", "iiMediaControls", "iiNotificationPopup", "iiOnScreenDisplay", "iiOnScreenKeyboard", "iiOverlay", "iiOverview", "iiPolkit", "iiRegionSelector", "iiScreenCorners", "iiSessionScreen", "iiSidebarLeft", "iiSidebarRight", "iiVerticalBar", "iiWallpaperSelector"],
         "waffle": ["wActionCenter", "wBar", "wBackground", "wNotificationCenter", "wOnScreenDisplay", "wStartMenu", "iiCheatsheet", "iiLock", "iiNotificationPopup", "iiOnScreenKeyboard", "iiOverlay", "iiPolkit", "iiRegionSelector", "iiSessionScreen", "iiWallpaperSelector"],
     })
->>>>>>> main
     function cyclePanelFamily() {
         const currentIndex = families.indexOf(Config.options.panelFamily)
         const nextIndex = (currentIndex + 1) % families.length

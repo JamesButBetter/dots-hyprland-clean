@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-pragma ComponentBehavior: Bound
-=======
->>>>>>> main
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
