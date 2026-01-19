@@ -63,9 +63,34 @@ AbstractBackgroundWidget {
             anchors.horizontalCenter: parent.horizontalCenter
             shown: root.clockStyle === "digital" && (root.shouldShow)
             fade: false
-            sourceComponent: DigitalClock {
-                colText: root.colText
-                textHorizontalAlignment: root.textHorizontalAlignment
+            sourceComponent: ColumnLayout {
+                id: clockColumn
+                spacing: 6
+
+                ClockText {
+                    font.pixelSize: 90
+                    text: DateTime.time
+                    textHorizontalAlignment: root.textHorizontalAlignment
+                }
+                ClockText {
+                    Layout.topMargin: -5
+                    text: DateTime.longDate
+                    textHorizontalAlignment: root.textHorizontalAlignment
+                }
+                StyledText {
+                    // Somehow gets fucked up if made a ClockText???
+                    visible: Config.options.background.widgets.clock.quote.enable && Config.options.background.widgets.clock.quote.text.length > 0
+                    Layout.fillWidth: true
+                    horizontalAlignment: root.textHorizontalAlignment
+                    font {
+                        pixelSize: Appearance.font.pixelSize.normal
+                        weight: 350
+                    }
+                    color: root.colText
+                    style: Text.Raised
+                    styleColor: Appearance.colors.colShadow
+                    text: Config.options.background.widgets.clock.quote.text
+                }
             }
         }
         StatusRow {

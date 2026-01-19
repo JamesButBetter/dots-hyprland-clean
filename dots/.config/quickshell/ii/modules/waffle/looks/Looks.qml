@@ -17,9 +17,8 @@ Singleton {
     property string iconsPath: `${Directories.assetsPath}/icons/fluent`
     property bool dark: Appearance.m3colors.darkmode
 
-    readonly property bool transparencyEnabled: Config.options.appearance.transparency.enable
-    property real backgroundTransparency: transparencyEnabled ? 0.16 : 0
-    property real panelBackgroundTransparency: transparencyEnabled ? 0.14 : 0
+    property real backgroundTransparency: 0.13
+    property real panelBackgroundTransparency: 0.12
     property real panelLayerTransparency: root.dark ? 0.9 : 0.7
     property real contentTransparency: root.dark ? 0.87 : 0.5
     function applyBackgroundTransparency(col) {
@@ -28,17 +27,18 @@ Singleton {
     function applyContentTransparency(col) {
         return ColorUtils.applyAlpha(col, 1 - root.contentTransparency)
     }
-    lightColors: QtObject {
+    lightColors: QtObject { // TODO: figure out transparency 
         id: lightColors
+        property color bgPanelFooter: "#EEEEEE"
         property color bgPanelBody: "#F2F2F2"
         property color bgPanelSeparator: "#E0E0E0"
         property color bg0: "#EEEEEE"
         property color bg0Border: '#BEBEBE'
-        property color bg1Base: "#F7F7F7"
         property color bg1: "#F7F7F7"
+        property color bg1Base: "#F7F7F7"
         property color bg1Hover: "#F7F7F7"
         property color bg1Active: '#EFEFEF'
-        property color bg1Border: '#E9E9E9'
+        property color bg1Border: '#d7d7d7'
         property color bg2: "#FBFBFB"
         property color bg2Base: "#FBFBFB"
         property color bg2Hover: '#ffffff'
@@ -56,13 +56,14 @@ Singleton {
         property color link: "#235CCF"
         property color inputBg: ColorUtils.transparentize(bg0, 0.4)
     }
-    darkColors: QtObject {
+    darkColors: QtObject { // ???
         id: darkColors
+        property color bgPanelFooter: "#1C1C1C"
         property color bgPanelBody: '#242424'
         property color bgPanelSeparator: "#191919"
         property color bg0: "#1C1C1C"
         property color bg0Border: "#404040"
-        property color bg1Base: '#2C2C2C'
+        property color bg1Base: "#2C2C2C"
         property color bg1: '#2C2C2C'
         property color bg1Hover: "#292929"
         property color bg1Active: '#252525'
@@ -86,47 +87,38 @@ Singleton {
     }
     colors: QtObject {
         id: colors
-        // Special
         property color shadow: ColorUtils.transparentize('#161616', 0.62)
         property color ambientShadow: ColorUtils.transparentize("#000000", 0.75)
-        property color bgPanelFooterBase: root.dark ? root.darkColors.bg0 : root.lightColors.bg0
-        property color bgPanelFooterBackground: ColorUtils.transparentize(root.dark ? root.darkColors.bg0 : root.lightColors.bg0, root.panelBackgroundTransparency)
-        property color bgPanelFooter: ColorUtils.transparentize(bgPanelFooterBackground, root.panelLayerTransparency)
-        property color bgPanelBodyBase: root.dark ? root.darkColors.bgPanelBody : root.lightColors.bgPanelBody
-        property color bgPanelBody: ColorUtils.solveOverlayColor(bgPanelFooterBackground,bgPanelBodyBase, 1 - root.panelLayerTransparency)
-        property color bgPanelSeparator: ColorUtils.solveOverlayColor(bgPanelBodyBase, root.dark ? root.darkColors.bgPanelSeparator : root.lightColors.bgPanelSeparator, 1 - root.panelBackgroundTransparency)
-        // Layer 0
-        property color bg0Base: root.dark ? root.darkColors.bg0 : root.lightColors.bg0
-        property color bg0: ColorUtils.transparentize(bg0Base, root.backgroundTransparency)
+        property color bgPanelFooterBase: ColorUtils.transparentize(root.dark ? root.darkColors.bgPanelFooter : root.lightColors.bgPanelFooter, root.panelBackgroundTransparency)
+        property color bgPanelFooter: ColorUtils.transparentize(root.dark ? root.darkColors.bgPanelFooter : root.lightColors.bgPanelFooter, root.panelLayerTransparency)
+        property color bgPanelBody: ColorUtils.transparentize(root.dark ? root.darkColors.bgPanelBody : root.lightColors.bgPanelBody, root.panelLayerTransparency)
+        property color bgPanelSeparator: ColorUtils.transparentize(root.dark ? root.darkColors.bgPanelSeparator : root.lightColors.bgPanelSeparator, root.backgroundTransparency)
+        property color bg0Opaque: root.dark ? root.darkColors.bg0 : root.lightColors.bg0
+        property color bg0: ColorUtils.transparentize(bg0Opaque, root.backgroundTransparency)
         property color bg0Border: ColorUtils.transparentize(root.dark ? root.darkColors.bg0Border : root.lightColors.bg0Border, root.backgroundTransparency)
-        // Layer 1
-        property color bg1Base: root.dark ? root.darkColors.bg1 : root.lightColors.bg1
-        property color bg1: ColorUtils.solveOverlayColor(bg0Base, bg1Base, 1 - root.contentTransparency)
-        property color bg1Hover: ColorUtils.solveOverlayColor(bg0Base, root.dark ? root.darkColors.bg1Hover : root.lightColors.bg1Hover, 1 - root.contentTransparency)
-        property color bg1Active: ColorUtils.solveOverlayColor(bg0Base, root.dark ? root.darkColors.bg1Active : root.lightColors.bg1Active, 1 - root.contentTransparency)
-        property color bg1Border: ColorUtils.solveOverlayColor(bg0Base, root.dark ? root.darkColors.bg1Border : root.lightColors.bg1Border, 1 - root.contentTransparency)
-        // Layer 2
-        property color bg2Base: root.dark ? root.darkColors.bg2 : root.lightColors.bg2
-        property color bg2: ColorUtils.solveOverlayColor(bgPanelBodyBase, bg2Base, 1 - root.contentTransparency)
-        property color bg2Hover: ColorUtils.solveOverlayColor(bgPanelBodyBase, root.dark ? root.darkColors.bg2Hover : root.lightColors.bg2Hover, 1 - root.contentTransparency)
-        property color bg2Active: ColorUtils.solveOverlayColor(bgPanelBodyBase, root.dark ? root.darkColors.bg2Active : root.lightColors.bg2Active, 1 - root.contentTransparency)
-        property color bg2Border: ColorUtils.solveOverlayColor(bgPanelBodyBase, root.dark ? root.darkColors.bg2Border : root.lightColors.bg2Border, 1 - root.contentTransparency)
-        // Foreground / Text
+        property color bg1Base: ColorUtils.transparentize(root.dark ? root.darkColors.bg1Base : root.lightColors.bg1Base, root.backgroundTransparency)
+        property color bg1: ColorUtils.transparentize(root.dark ? root.darkColors.bg1 : root.lightColors.bg1, root.contentTransparency)
+        property color bg1Hover: ColorUtils.transparentize(root.dark ? root.darkColors.bg1Hover : root.lightColors.bg1Hover, root.contentTransparency)
+        property color bg1Active: ColorUtils.transparentize(root.dark ? root.darkColors.bg1Active : root.lightColors.bg1Active, root.contentTransparency)
+        property color bg1Border: ColorUtils.transparentize(root.dark ? root.darkColors.bg1Border : root.lightColors.bg1Border, root.contentTransparency)
+        property color bg2Base: ColorUtils.transparentize(root.dark ? root.darkColors.bg2Base : root.lightColors.bg2Base, root.backgroundTransparency)
+        property color bg2: ColorUtils.transparentize(root.dark ? root.darkColors.bg2 : root.lightColors.bg2, root.contentTransparency)
+        property color bg2Hover: ColorUtils.transparentize(root.dark ? root.darkColors.bg2Hover : root.lightColors.bg2Hover, root.contentTransparency)
+        property color bg2Active: ColorUtils.transparentize(root.dark ? root.darkColors.bg2Active : root.lightColors.bg2Active, root.contentTransparency)
+        property color bg2Border: ColorUtils.transparentize(root.dark ? root.darkColors.bg2Border : root.lightColors.bg2Border, root.contentTransparency)
         property color subfg: root.dark ? root.darkColors.subfg : root.lightColors.subfg
         property color fg: root.dark ? root.darkColors.fg : root.lightColors.fg
         property color fg1: root.dark ? root.darkColors.fg1 : root.lightColors.fg1
         property color inactiveIcon: root.dark ? root.darkColors.inactiveIcon : root.lightColors.inactiveIcon
-        property color link: root.dark ? root.darkColors.link : root.lightColors.link
-        // Controls
         property color controlBgInactive: root.dark ? root.darkColors.controlBgInactive : root.lightColors.controlBgInactive
         property color controlBg: root.dark ? root.darkColors.controlBg : root.lightColors.controlBg
         property color controlBgHover: root.dark ? root.darkColors.controlBgHover : root.lightColors.controlBgHover
         property color controlFg: root.dark ? root.darkColors.controlFg : root.lightColors.controlFg
         property color inputBg: root.dark ? root.darkColors.inputBg : root.lightColors.inputBg
+        property color link: root.dark ? root.darkColors.link : root.lightColors.link
         property color danger: "#C42B1C"
         property color dangerActive: "#B62D1F"
         property color warning: "#FF9900"
-        // Accent
         property color accent: Appearance.colors.colPrimary
         property color accentHover: Appearance.colors.colPrimaryHover
         property color accentActive: Appearance.colors.colPrimaryActive
@@ -161,12 +153,6 @@ Singleton {
             property real normal: 11
             property real large: 13
             property real larger: 15
-            property real xlarger: 17
-        }
-        property QtObject variableAxes: QtObject {
-            property var ui: ({
-                "wdth": 25
-            })
         }
     }
 

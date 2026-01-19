@@ -87,8 +87,7 @@ Item {
     property real verticalPadding: 0
     property real buttonSize: 40
     property real buttonSpacing: 2
-    property real buttonVerticalSpacing: buttonSpacing
-    implicitHeight: (6 * buttonSize) + (5 * buttonVerticalSpacing) + (2 * verticalPadding)
+    implicitHeight: (6 * buttonSize) + (5 * buttonSpacing) + (2 * verticalPadding)
     implicitWidth: weeksColumn.implicitWidth
     clip: true
     
@@ -99,13 +98,13 @@ Item {
             right: parent.right
         }
         y: {
-            const spacePerExtraRow = root.buttonSize + root.buttonVerticalSpacing;
+            const spacePerExtraRow = root.buttonSize + root.buttonSpacing;
             const origin = -(spacePerExtraRow * root.paddingWeeks);
             const diff = root.weekDiff * spacePerExtraRow;
             return origin + (-diff % spacePerExtraRow) + root.verticalPadding;
         }
 
-        spacing: root.buttonVerticalSpacing
+        spacing: root.buttonSpacing
         
         Repeater {
             model: root.totalWeeks

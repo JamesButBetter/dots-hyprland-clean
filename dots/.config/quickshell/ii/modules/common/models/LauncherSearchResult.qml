@@ -19,14 +19,11 @@ QtObject {
     }
     property var actions: []
     
-    // Stuff needed for DesktopEntry 
-    property string id: ""
+    // Stuff needed for DesktopEntry objects
     property bool shown: true
     property string comment: ""
     property bool runInTerminal: false
     property string genericName: ""
     property list<string> keywords: []
 
-    // Extra stuff to allow for more flexibility
-    property string category: type
 }

@@ -21,13 +21,13 @@ MouseArea {
         animation: Looks.transition.move.createObject(this)
     }
 
-    WListView {
-        id: appRow
+    // Apps row
+    RowLayout {
+        id: row
         anchors {
             top: parent.top
             bottom: parent.bottom
         }
-        orientation: Qt.Horizontal
         spacing: 0
         implicitWidth: contentWidth
         clip: true
@@ -44,8 +44,16 @@ MouseArea {
             onHoverPreviewRequested: {
                 root.showPreviewPopup(appEntry, this);
             }
-            onHoverPreviewDismissed: {
-                previewPopup.close();
+            delegate: TaskAppButton {
+                required property var modelData
+                appEntry: modelData
+
+                onHoverPreviewRequested: {
+                    root.showPreviewPopup(appEntry, this)
+                }
+                onHoverPreviewDismissed: {
+                    previewPopup.close()
+                }
             }
         }
     }
@@ -56,4 +64,5 @@ MouseArea {
         tasksHovered: root.containsMouse
         anchor.window: root.QsWindow.window
     }
+
 }

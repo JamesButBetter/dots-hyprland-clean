@@ -66,9 +66,8 @@ BodyRectangle {
                 id: calendarView
                 locale: root.locale
                 verticalPadding: 2
-                buttonSize: 41 // ???
-                buttonSpacing: 6
-                buttonVerticalSpacing: 1
+                buttonSize: 42 // ???
+                buttonSpacing: 3
                 Layout.fillWidth: true
                 delegate: DayButton {}
             }
@@ -91,7 +90,7 @@ BodyRectangle {
                 anchors.centerIn: parent
                 text: dayButton.model.day
                 color: dayButton.fgColor
-                font.pixelSize: Looks.font.pixelSize.larger
+                font.pixelSize: Looks.font.pixelSize.larger // ???
             }
         }
     }

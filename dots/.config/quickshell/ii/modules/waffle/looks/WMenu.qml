@@ -14,9 +14,6 @@ Menu {
     property bool downDirection: false
     property bool hasIcons: false // TODO: implement
 
-    property color color: Looks.colors.bg1Base
-    property alias backgroundPane: bgPane
-
     implicitWidth: background.implicitWidth + margins * 2
     implicitHeight: background.implicitHeight + margins * 2
     margins: 10
@@ -61,7 +58,7 @@ Menu {
                 bottomMargin: root.downDirection ? root.margins : root.sourceEdgeMargin
             }
             contentItem: Rectangle {
-                color: root.color
+                color: Looks.colors.bg1Base
                 implicitWidth: menuListView.implicitWidth + root.padding * 2
                 implicitHeight: root.contentItem.implicitHeight + root.padding * 2
             }
@@ -69,16 +66,11 @@ Menu {
         }
     }
 
-    Component.onCompleted: {
-        menuListView.itemAtIndex(0)?.forceActiveFocus();
-    }
-
     contentItem: Item {
         implicitWidth: menuListView.implicitWidth
         implicitHeight: menuListView.implicitHeight
-        WListView {
+        ListView {
             id: menuListView
-            interactive: contentHeight > height
             anchors {
                 left: parent.left
                 right: parent.right
@@ -88,7 +80,6 @@ Menu {
                 topMargin: root.downDirection ? root.sourceEdgeMargin : root.margins
                 bottomMargin: root.downDirection ? root.margins : root.sourceEdgeMargin
             }
-            clip: true
             implicitHeight: contentHeight
             implicitWidth: Array.from({
                 length: count
@@ -100,5 +91,6 @@ Menu {
 
     delegate: WMenuItem {
         id: menuItemDelegate
+        width: ListView.view?.width
     }
 }

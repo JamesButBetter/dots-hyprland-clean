@@ -4,7 +4,6 @@ import qs.modules.common.widgets
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Qt.labs.synchronizer
 import Qt5Compat.GraphicalEffects
 import Quickshell.Io
 import Quickshell
