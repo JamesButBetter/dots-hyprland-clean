@@ -81,8 +81,8 @@ Singleton {
             property string panelFamily: "ii" // "ii", "waffle"
 
             property JsonObject policies: JsonObject {
-                property int ai: 1 // 0: No | 1: Yes | 2: Local
-                property int weeb: 1 // 0: No | 1: Open | 2: Closet
+                property int weeb: 0 // 0: No | 1: Open | 2: Closet
+                property int ai: 0 // 0: No | 1: Yes | 2: Local
             }
 
             property JsonObject ai: JsonObject {
@@ -169,8 +169,8 @@ Singleton {
                         property string placementStrategy: "leastBusy" // "free", "leastBusy", "mostBusy"
                         property real x: 100
                         property real y: 100
-                        property string style: "cookie"        // Options: "cookie", "digital"
-                        property string styleLocked: "cookie"  // Options: "cookie", "digital"
+                        property string style: "digital"        // Options: "cookie", "digital"
+                        property string styleLocked: "digital"  // Options: "cookie", "digital"
                         property JsonObject cookie: JsonObject {
                             property bool aiStyling: false
                             property int sides: 14
@@ -272,7 +272,7 @@ Singleton {
                     property bool enableGPS: true // gps based location
                     property string city: "" // When 'enableGPS' is false
                     property bool useUSCS: false // Instead of metric (SI) units
-                    property int fetchInterval: 10 // minutes
+                    property int fetchInterval: 9 // minutes
                 }
                 property JsonObject indicators: JsonObject {
                     property JsonObject notifications: JsonObject {
@@ -285,8 +285,8 @@ Singleton {
             }
 
             property JsonObject battery: JsonObject {
-                property int low: 20
-                property int critical: 5
+                property int critical: 3
+                property int low: 9
                 property int full: 101
                 property bool automaticSuspend: true
                 property int suspend: 3
@@ -525,12 +525,13 @@ Singleton {
                     property JsonObject android: JsonObject {
                         property int columns: 5
                         property list<var> toggles: [
-                            { "size": 2, "type": "network" },
-                            { "size": 2, "type": "bluetooth"  },
-                            { "size": 1, "type": "idleInhibitor" },
-                            { "size": 1, "type": "mic" },
-                            { "size": 2, "type": "audio" },
-                            { "size": 2, "type": "nightLight" }
+                            {"size": 2, "type": "bluetooth"},
+                            {"size": 2, "type": "network"},
+                            {"size": 1, "type": "idleInhibitor"},
+                            {"size": 2, "type": "audio"},
+                            {"size": 1, "type": "onScreenKeyboard"},
+                            {"size": 1, "type": "screenSnip"},
+                            {"size": 1, "type": "mic"}
                         ]
                     }
                 }

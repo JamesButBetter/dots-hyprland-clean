@@ -162,8 +162,6 @@ Scope {
     }
     GlobalShortcut {
         name: "overviewWorkspacesClose"
-        description: "Closes overview on press"
-
         onPressed: {
             GlobalStates.overviewOpen = false;
         }
